@@ -2,7 +2,7 @@ import { useState } from 'react'
 import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
-import './App.css'
+import "./App.css";
 
 function App() {
   // lista de álbuns de teste (depois vai vir da API)
@@ -18,7 +18,7 @@ function App() {
 
       {/* mostra cada álbum da lista */}
       {lista.map((album) => (
-        <div key={album.id}>
+        <div key={album.id} className="cartao">
           <h2>{album.titulo}</h2>
           <p>Artista: {album.artista}</p>
           <p>Ano: {album.ano}</p>
