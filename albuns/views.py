@@ -52,6 +52,7 @@ def listarAlbuns(request):
                 },
                 status = 201,
             )
+        # 
         except json.JSONDecodeError:
             return JsonResponse(
                 {"erro": "Envie um JSON válido"},
@@ -67,6 +68,7 @@ def mostrarResumo(request):
         albuns = list(Album.objects.values())
         totalAlbuns = len(albuns)
 
+        # Aqui mostra um aviso quando não tem nenhum álbum para o resumo, é necessario um album pelo menos
         if totalAlbuns == 0:
             return JsonResponse(
                 {
@@ -75,16 +77,19 @@ def mostrarResumo(request):
                 }
             )
 
+        # Aqui é parte do calculo da media das avaliações 
         soma = 0
         for album in albuns:
             soma += album["avaliacao"]
         mediaDaAvaliacao = round(soma / totalAlbuns, 2)
 
+        # Aqui é a parte da decisão do album mais avalido
         melhorAlbum = albuns[0]
         for album in albuns:
             if album["avaliacao"] > melhorAlbum["avaliacao"]:
                 melhorAlbum = album
 
+        # Aqui é a entrega do resumo para o front
         return JsonResponse(
             {
                 "total": totalAlbuns,
