@@ -18,7 +18,7 @@ def listarAlbuns(request):
             titulo = dados.get("titulo")
             artista = dados.get("artista")
             ano = dados.get("ano")
-            avaliacao = dados.get("avaliação")
+            avaliacao = dados.get("avaliacao")
 
             # Aqui é a validação do dado ano, ele vai ver se o ano é um int e se ele está entre 1900 e 2026, se qualquer uma dessas coisass falharem ele retorna como um erro para o front
             if not isinstance(ano, int) or not 1900 <= ano <= 2026:
@@ -60,3 +60,36 @@ def listarAlbuns(request):
 
 
     return HttpResponseNotAllowed(["GET", "POST"])
+
+# Aaqui é a função que possui um metodo GET que vai retornar o total de albuns no banco de dados e vai enviar de resposta para o front
+def mostrarResumo(request):
+    if request.method == "GET":
+        albuns = list(Album.objects.values())
+        totalAlbuns = len(albuns)
+
+        if totalAlbuns == 0:
+            return JsonResponse(
+                {
+                    "total": 0, 
+                    "mensagem": "Nenhum foi álbum cadastrado." 
+                }
+            )
+
+        soma = 0
+        for album in albuns:
+            soma += album["avaliacao"]
+        mediaDaAvaliacao = round(soma / totalAlbuns, 2)
+
+        melhorAlbum = albuns[0]
+        for album in albuns:
+            if album["avaliacao"] > melhorAlbum["avaliacao"]:
+                melhorAlbum = album
+
+        return JsonResponse(
+            {
+                "total": totalAlbuns,
+                "media_avaliacao": mediaDaAvaliacao,
+                "melhor": melhorAlbum["titulo"],
+            },
+        )
+    return HttpResponseNotAllowed(["GET"])
