@@ -1,8 +1,12 @@
 import json
 
+
 from django.http import HttpResponseNotAllowed, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import Album
+
+@csrf_exempt
 
 # Aqui é a função que possui o metodo http GET e POST, que é a função que vai listar os albuns os albuns existentes, o metodo GET vai retornar a lista dos dados do banco de dados
 def listarAlbuns(request):

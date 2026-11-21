@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
@@ -6,33 +6,46 @@ import "./App.css";
 
 function App() {
   // lista de álbuns de teste (depois vai vir da API)
-  const [lista, setLista] = useState([
-  { id: 1, titulo: "Thriller", artista: "Michael Jackson", ano: 1982, avaliacao: 4.8 },
-  { id: 2, titulo: "Abbey Road", artista: "The Beatles", ano: 1969, avaliacao: 4.9 },
-  { id: 3, titulo: "Nevermind", artista: "Nirvana", ano: 1991, avaliacao: 4.7 },
-]);
+  const [lista, setLista] = useState([]);
+
+useEffect(() => {
+  fetch("/api/albuns/")
+    .then((resposta) => resposta.json())
+    .then((dados) => setLista(dados));
+}, []);
 const [titulo, setTitulo] = useState("");
   const [artista, setArtista] = useState("");
   const [ano, setAno] = useState("");
   const [nota, setNota] = useState("");
-function adicionar() {
-  // monta o álbum novo com o que foi digitado
+async function adicionar() {
+  // monta o álbum com o que foi digitado
   const novoAlbum = {
-    id: lista.length + 1,
     titulo: titulo,
     artista: artista,
     ano: Number(ano),
     avaliacao: Number(nota),
   };
 
-  // coloca o álbum novo no final da lista
-  setLista([...lista, novoAlbum]);
+  // manda pro Django salvar no banco
+  const resposta = await fetch("/api/albuns/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(novoAlbum),
+  });
 
-  // limpa os campos
-  setTitulo("");
-  setArtista("");
-  setAno("");
-  setNota("");
+  const dados = await resposta.json();
+
+  if (resposta.ok) {
+    // deu certo: coloca o álbum na lista e limpa os campos
+    setLista([...lista, dados]);
+    setTitulo("");
+    setArtista("");
+    setAno("");
+    setNota("");
+  } else {
+    // deu erro: mostra a mensagem do Django
+    alert(dados.erro);
+  }
 }
   return (
     <div>
