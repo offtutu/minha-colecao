@@ -1,11 +1,10 @@
+
 from django.contrib import admin
 from django.urls import path
+from albums.views import listar_albuns, mostrar_resumo
 
-from albuns.views import listarAlbuns, mostrarResumo
-
-# Aqui é as rotas que estão sendo utilizadas no projeto
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/albuns/', listarAlbuns),
-    path('api/albuns/resumo/', mostrarResumo),
+    path('api/albuns/', listar_albuns),
+    path('api/albuns/resumo/', mostrar_resumo),
 ]
