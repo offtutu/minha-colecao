@@ -4,7 +4,7 @@ import "./App.css";
 
 import Formulario from "./components/Formulario";
 import Lista from "./components/Lista";
-import Resumo from "./components/Resumo";
+import Resumo from "./components/resumo";
 
 function App() {
   const [lista, setLista] = useState([]);
