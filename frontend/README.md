@@ -1,16 +1,76 @@
-# React + Vite
+# Minha Coleção
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Integrantes
 
-Currently, two official plugins are available:
+- Pedro Henrique Camargo Ludovico — RA: 11261102648
+- Arthur Kemmel Esteves Mellem — RA: 11261102971
+- Cristhian Henrique Santos Oliveira — RA: 11261100593
+- Eduarda Camile Ramos de Oliveira — RA: 11251101956
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Variante
 
-## React Compiler
+**Álbuns**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+O projeto consiste em uma aplicação web para cadastrar e visualizar uma coleção de álbuns, permitindo informar título, artista, ano e avaliação.
 
-## Expanding the Oxlint configuration
+A aplicação também possui pesquisa por título e um resumo com a quantidade de álbuns cadastrados, média das avaliações e melhor álbum.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Tecnologias utilizadas
+
+- **Backend:** Python e Django
+- **Frontend:** React e Vite
+- **Banco de dados:** SQLite
+
+## Como executar o projeto
+
+### 1. Backend
+
+Abra o terminal na pasta raiz do projeto, onde está o arquivo `manage.py`.
+
+Instale as dependências:
+
+```bash
+pip install -r requirements.txt
+```
+
+Aplique as migrações do banco de dados:
+
+```bash
+python manage.py migrate
+```
+
+Inicie o servidor:
+
+```bash
+python manage.py runserver
+```
+
+O backend estará disponível em:
+
+http://127.0.0.1:8000/
+
+### 2. Frontend
+
+Abra outro terminal e entre na pasta frontend:
+
+```bash
+cd frontend
+```
+
+Instale as dependências:
+
+```bash
+npm install
+```
+
+Inicie o projeto:
+
+```bash
+npm run dev
+```
+
+O frontend estará disponível em:
+
+http://localhost:5173/
+
+**Importante:** mantenha os dois servidores ligados enquanto estiver utilizando a aplicação.
